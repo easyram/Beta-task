@@ -41,7 +41,7 @@ for ticker in tickers:
         
 df.index = pd.to_datetime(df.index/1000,unit='s')
 
-# pick up top 10 companies by market cap every 20 days and assign weights based by 20 days returns
+# pick up top 10 companies by market cap every 20 days and assign weights based on 20 days returns
 df_returns = df.pct_change(periods=20)
 weights_df = pd.DataFrame(index=df.index,columns=df.columns)
 
@@ -61,7 +61,7 @@ for i,row in df.iterrows():
             ret = ret.sort_values(ascending=True)
             r_min = ret.min()
             r_max = ret.max()
-            weights = [((x-r_min)/(r_max-r_min+0.001))**1 for x in ret.values]
+            weights = [((x-r_min)/(r_max-r_min+0.001)) for x in ret.values]
             s_weights = sum(weights)
             
             weights = [x/s_weights for x in weights]
